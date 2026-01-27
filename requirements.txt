@@ -1,34 +1,34 @@
-# --- Core Framework (Golden 0.2.x Config) ---
+# --- Core Framework ---
 langchain==0.2.14
-langchain-core==0.2.39          # Critical: Fixes Pydantic V1 error
+langchain-core==0.2.39
 langchain-community==0.2.12
 langchain-text-splitters==0.2.2
 
-# --- AI Integrations (Pinned for Stability) ---
-langchain-google-genai==1.0.10  # Critical: Works with Flash & new Core
-langchain-groq==0.1.9           # Critical: Compatible with Llama 3
-langchain-openai==0.1.23        # Critical: Compatible with GPT-4o
-langchain-huggingface==0.0.3    # For Embeddings
+# --- Vector Database (CRITICAL FIX) ---
+chromadb==0.5.5
+langchain-chroma          # <--- I ADDED THIS LINE back in!
 
-# --- Vector Database ---
-chromadb==0.5.5                 # Stable version
-# langchain-chroma              # Optional: You are likely using the community wrapper
+# --- AI Integrations ---
+langchain-google-genai==1.0.10
+langchain-groq==0.1.9
+langchain-openai==0.1.23
+langchain-huggingface==0.0.3
 
-# --- Embedding & Math Support ---
-torch                           # PyTorch (CPU version is fine for Cloud)
-sentence-transformers>=3.0.0    # For the All-MiniLM model
+# --- AI & GPU Support ---
+torch
+sentence-transformers>=3.0.0
 accelerate
 
 # --- UI ---
 streamlit==1.37.0
-watchdog                        # For development speed
+watchdog
 
 # --- File Loaders ---
-pypdf                           # For PDFs
-python-pptx                     # Critical: For our custom robust slide loader
-docx2txt                        # For Word Docs
-jq                              # For cleaning .ipynb JSON
+pypdf
+python-pptx
+docx2txt
+jq
 
 # --- Utilities ---
-python-dotenv                   # To read .env files
-pydantic==2.8.2                 # Works with the compatibility layer
+python-dotenv
+pydantic==2.8.2
