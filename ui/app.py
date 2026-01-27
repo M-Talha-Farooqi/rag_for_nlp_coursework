@@ -3,6 +3,15 @@ import os
 import streamlit as st
 import pandas as pd
 
+
+# --- ADD THIS BRIDGE CODE ---
+# This takes the keys you just pasted in Streamlit Cloud 
+# and moves them into the "Environment" so LangChain can find them.
+if hasattr(st, "secrets"):
+    for key in st.secrets.keys():
+        os.environ[key] = str(st.secrets[key])
+# ---------------------------
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from ui.layout import render_header, render_sidebar
 from ui.session_state import init_session_state
