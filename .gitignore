@@ -1,0 +1,43 @@
+# --- 1. Security & Secrets (CRITICAL) ---
+.env
+.env.local
+secrets.yaml
+
+# --- 2. Python & Virtual Environment ---
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- 3. Data & Database (MODIFIED FOR DEPLOYMENT) ---
+# ⚠️ We COMMENTED these out so your DB & PDFs are uploaded to GitHub.
+# If your database is huge (>100MB), we might need a different strategy.
+# data/raw/*
+# data/processed/*
+
+# ⚠️ IMPORTANT: Ensure this matches your actual folder name!
+# In our code, we usually named it 'data/vectorstore'.
+# data/vectorstore/*
+# data/vectordb/*
+# chroma/
+
+# Exclude typically large junk files, but keep the folder structure
+*.sqlite3
+*.db
+
+# --- 4. Jupyter Notebooks ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# --- 5. Operating System & IDE ---
+.DS_Store
+.AppleDouble
+.LSOverride
+.vscode/
+.idea/
+*.swp
+
+# --- 6. Local Configuration ---
+configs/local_config.yaml

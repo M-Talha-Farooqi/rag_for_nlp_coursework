@@ -1,0 +1,20 @@
+[theme]
+# "Jugnu Enterprise Blue" - Professional and Trustworthy
+primaryColor = "#2E86C1"
+
+# Clean White Background for readability (Dashboard style)
+backgroundColor = "#FFFFFF"
+
+# Light Gray Sidebar to separate controls from data
+secondaryBackgroundColor = "#F0F2F6"
+
+# Dark Text for high contrast
+textColor = "#262730"
+
+# Modern Sans Serif font
+font = "sans serif"
+
+[server]
+headless = true
+enableCORS = false
+enableXsrfProtection = false
