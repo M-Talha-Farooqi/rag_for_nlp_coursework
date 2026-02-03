@@ -1,8 +1,8 @@
 import sys
 import os
+import time
 import streamlit as st
 import pandas as pd
-
 
 # --- ADD THIS BRIDGE CODE ---
 # This takes the keys you just pasted in Streamlit Cloud 
@@ -87,14 +87,33 @@ def main():
 
             with st.chat_message("assistant"):
                 message_placeholder = st.empty()
-                with st.spinner(f"🧠 {config['provider']} is thinking..."):
-                    try:
-                        response = st.session_state.rag_chain.invoke({"input": prompt})
-                        full_response = response.get("answer", "No response generated.")
-                        message_placeholder.markdown(full_response)
-                    except Exception as e:
-                        full_response = f"⚠️ Error: {str(e)}"
-                        message_placeholder.error(full_response)
+                full_response = ""
+                
+                # --- START STREAMING LOGIC ---
+                try:
+                    # We use .stream() instead of .invoke()
+                    # This yields chunks of text as they are generated
+                    for chunk in st.session_state.rag_chain.stream({"input": prompt}):
+                        
+                        # In RAG chains, the chunk is often a dict. 
+                        # We only want the 'answer' part, not the 'context' retrieval steps.
+                        if 'answer' in chunk:
+                            new_text = chunk['answer']
+                            full_response += new_text
+                            
+                            # Update the UI with the cursor effect ▌
+                            message_placeholder.markdown(full_response + "▌")
+                            
+                            # Optional: Tiny sleep to make it feel more "human" if it's too fast
+                            # time.sleep(0.01) 
+
+                    # Final update removes the cursor
+                    message_placeholder.markdown(full_response)
+                
+                except Exception as e:
+                    full_response = f"⚠️ Error: {str(e)}"
+                    message_placeholder.error(full_response)
+                # --- END STREAMING LOGIC ---
                 
                 st.session_state.messages.append({"role": "assistant", "content": full_response})
 
